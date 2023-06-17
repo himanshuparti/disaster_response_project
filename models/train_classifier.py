@@ -17,11 +17,21 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 import pickle
 
+
 def load_data(database_filepath):
+    """
+    load_data
+   Load Data from the Database file
+   
+   Arguments:
+       database_filepath -> Path to SQLite destination database - DisasterResponse.db)
+   Output:
+       X -> a dataframe containing message
+       y -> a dataframe containing labels
+       category_names -> List of categories name
+   """
     engine = create_engine('sqlite:///'+database_filepath)
     df = pd.read_sql_table('Disaster_Data', engine)
-    # There is 2 in the related column so we will replace it with 1
-    df['related'] = df['related'].replace(2,1)
     # splitting into target and predicting variables
     X = df.message
     y = df[df.columns[4:]]
@@ -29,7 +39,17 @@ def load_data(database_filepath):
     return X, y, category_names
 
 
+
 def tokenize(text):
+    """
+    tokenize
+    Tokenize and lemmatize the text 
+    
+    Arguments:
+        text -> Text message which needs to be tokenized
+    Output:
+        token_list -> List of tokens extracted from the provided text
+    """
     url_regular = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     urls = re.findall(url_regular, text)
     for url in urls:
@@ -47,6 +67,11 @@ def tokenize(text):
 
 
 def build_model():
+    """
+   build_model
+   A Scikit ML model that process text messages and applies a classifier.
+       
+   """
     pipeline = Pipeline([
     ('vec_count', CountVectorizer(tokenizer=tokenize)),
     ('tfidf', TfidfTransformer()),
@@ -63,17 +88,44 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    evaluate_model
+    This function prints out the model performance using classification matrix
+    
+    Arguments:
+        model -> scikit model
+        X_test -> Test features
+        Y_test -> Test labels
+        category_names -> label names (multi-output)
+    """
     y_prediction = model.predict(X_test)
     class_report = classification_report(Y_test, y_prediction, target_names=category_names)
     print(class_report)
 
 
 def save_model(model, model_filepath):
+    """
+   save_model
+   This function saves trained model as Pickle file, to be loaded later.
+   
+   Arguments:
+       model -> GridSearchCV object
+       model_filepath -> destination path to save .pkl file
+   
+   """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 
 
 def main():
+    """ 
+    main
+    This function applies the Machine Learning Pipeline:
+        1) Extract data from SQLite db
+        2) Train ML model on training set
+        3) Estimate model performance on test set
+        4) Save trained model as Pickle
+    """
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
         print('Loading data...\n    DATABASE: {}'.format(database_filepath))

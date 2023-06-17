@@ -15,6 +15,15 @@ from sqlalchemy import create_engine
 app = Flask(__name__)
 
 def tokenize(text):
+    """
+    tokenize
+    Tokenize and lemmatize the text 
+    
+    Arguments:
+        text -> Text message which needs to be tokenized
+    Output:
+        token_list -> List of tokens extracted from the provided text
+    """
     tokens = word_tokenize(text)
     lemmatizer = WordNetLemmatizer()
 
