@@ -53,15 +53,18 @@ def clean_data(df):
         categories[column] = categories[column].str[-1]
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
-    # There is 2 in the related column so we will drop all the 2s as there are only 193 values
-    categories = categories[categories.related != 2]
+    
     # drop the original categories column from `df`
     df.drop('categories', axis=1, inplace = True)
     # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis=1)
     
+    # There is 2 in the related column so we will drop all the 2s as there are only 193 values
+    df = df[df.related != 2]
+    
     # drop duplicates
     df = df.drop_duplicates()
+    
     return df
 
 
