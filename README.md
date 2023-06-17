@@ -25,6 +25,7 @@
 1. App - This folder contains the python script to run the webapp
 2. data - This folder contains the data and ipynb files, it also has python script to clean the data. It contains the database as .db file
 3. model - This folder contains the python script that creates the classifier model
+4. screenshots - Contains screenshots of the webapp and code logs
 
 
 ## 3. Dependencies<a name = "dependency"></a>
