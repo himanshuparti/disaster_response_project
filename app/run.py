@@ -8,7 +8,6 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
-# from sklearn.externals import joblib
 import joblib
 from sqlalchemy import create_engine
 
@@ -44,14 +43,19 @@ def index():
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
     
-    category_names = df.iloc[:,4:].columns
-    category_boolean = (df.iloc[:,4:] != 0).sum().values
+    # category data for plotting
+    categories =  df[df.columns[4:]]
+    cate_counts = (categories.mean()*categories.shape[0]).sort_values(ascending=False)
+    cate_names = list(cate_counts.index)
     
+    # Plotting of Categories Distribution in Direct Genre
+    direct_cate = df[df.genre == 'direct']
+    direct_cate_counts = (direct_cate.mean()*direct_cate.shape[0]).sort_values(ascending=False)
+    direct_cate_names = list(direct_cate_counts.index)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
     graphs = [
-            # GRAPH 1 - genre graph
         {
             'data': [
                 Bar(
@@ -70,12 +74,12 @@ def index():
                 }
             }
         },
-            # GRAPH 2 - category graph    
+        # category plotting (Visualization#2)
         {
             'data': [
                 Bar(
-                    x=category_names,
-                    y=category_boolean
+                    x=cate_names,
+                    y=cate_counts
                 )
             ],
 
@@ -85,8 +89,27 @@ def index():
                     'title': "Count"
                 },
                 'xaxis': {
-                    'title': "Category",
-                    'tickangle': 35
+                    'title': "Categories"
+                }
+            }
+            
+        },
+        # Categories Distribution in Direct Genre (Visualization#3)
+        {
+            'data': [
+                Bar(
+                    x=direct_cate_names,
+                    y=direct_cate_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Categories Distribution in Direct Genre',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Categories in Direct Genre"
                 }
             }
         }
@@ -116,7 +139,6 @@ def go():
         query=query,
         classification_result=classification_results
     )
-
 
 
 def main():
