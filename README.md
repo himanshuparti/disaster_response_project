@@ -2,10 +2,16 @@
 
 ### Table of Contents
 
+#### 1. [Introduction](#intro)
 #### 1. [Instruction](#instruction)
 #### 2. [File Description](#files)
 #### 3. [Dependency](#dependency)
 #### 4. [Acknowledgements](#ack)
+
+
+## Introduction<a name="intro"></a>
+This is a data science project which involves cleaning the data, getting it ready for building model and then getting the output to a webpage all using data pipelining and flask. In this project, I have build a model to classify messages sent during disasters. It has 36 message categories and we classify a message to be able to sent to their respective department and this provides a way to quickly help the people in need.
+
 
 ## Instruction<a name="instruction"></a>
 1. Run the following commands in the project's root directory to set up your database and model.
@@ -22,6 +28,30 @@
 
 
 ## 2. File Description<a name = "files"></a>
+ disaster_response_pipeline
+          - app
+                - templates
+                        - go.html
+                        - master.html
+                - run.py
+          - data
+                - disaster_message.csv
+                - disaster_categories.csv
+                - ETL Pipeline Preparation.ipynb
+                - ML Pipeline Preparation.ipynb
+                - DisasterResponse.db
+                - process_data.py
+          - models
+                - train_classifier.py
+          - screenshots
+                - best_parameters.png
+                - categorisation.png
+                - webapp.png
+          - README.md
+          - .gitignore
+          - .DS_Store
+          
+### Understanding Directories
 1. App - This folder contains the python script to run the webapp
 2. data - This folder contains the data and ipynb files, it also has python script to clean the data. It contains the database as .db file
 3. model - This folder contains the python script that creates the classifier model
