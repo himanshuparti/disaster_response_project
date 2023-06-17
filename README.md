@@ -28,6 +28,7 @@ This is a data science project which involves cleaning the data, getting it read
 
 
 ## 2. File Description<a name = "files"></a>
+~~~~~~~
  disaster_response_pipeline
           - app
                 - templates
@@ -50,7 +51,8 @@ This is a data science project which involves cleaning the data, getting it read
           - README.md
           - .gitignore
           - .DS_Store
-          
+~~~~~~~  
+
 ### Understanding Directories
 1. App - This folder contains the python script to run the webapp
 2. data - This folder contains the data and ipynb files, it also has python script to clean the data. It contains the database as .db file
