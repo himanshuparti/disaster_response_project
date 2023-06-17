@@ -3,8 +3,8 @@
 ### Table of Contents
 
 #### 1. [Instruction](#instruction)
-#### 3. [File Description](#files)
-#### 2. [Dependency](#dependency)
+#### 2. [File Description](#files)
+#### 3. [Dependency](#dependency)
 #### 4. [Acknowledgements](#ack)
 
 ## Instruction<a name="instruction"></a>
@@ -36,5 +36,5 @@
 6. Web App and Data Visualization: Flask, Plotly
 
 
-## 3. Acknowledgement<a name = "ack"></a>
+## 4. Acknowledgement<a name = "ack"></a>
 Thanks to UDACITY for giving me the opportunity to build a project and for all the help. With that - play around with the code as much as you like!
